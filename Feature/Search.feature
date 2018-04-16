@@ -16,27 +16,18 @@
 #""
 ## (Comments)
 #Sample Feature Definition Template
-@Search
-Feature: Search
+@Search 
+Feature: Search 
 
-  @First
-  Scenario Outline: Complete onboarding
-    Given a registered client "<username>" and "<password>"
-    When accessing for the first time
-    Then it will complete the onboarding process with the following Parameters and perform the "<Scenario>"
-      | Direction | Name   | Surname | Company      | Postal | Address | Packet | Weight | Width | Height | Length |  |
-      | Envio1    | Felipe | Garcia  | EnviosGarcia |  28932 | Madrid  | Madrid |      1 |    10 |     10 |     10 |  |
 
-    Examples: 
-      | Scenario | username                   | password |
-      |        0 | l4lip22662130@mailbox52.ga | Test@153 |
-
-  @Second
-  Scenario Outline: Perform Search
-    Given a registered client "<username>" and "<password>"
-    When performing a search with the following information:Madrid -> "Madrid". One parcel, 1 kg, 10 cm x 10 cm x 10 cm.
-    Then it will select the first service 0 of the list
-
-    Examples: 
-      | username                   | password |
-      | l4lip22662130@mailbox52.ga | Test@153 |
+@First 
+Scenario Outline: Search for Selenium with 
+	 Given user is on "https://www.google.es/" url with "<browser>"
+	When searching for "Selenium" 
+	And pressing i'm feeling lucky button 
+	Then page opened should be "https://www.seleniumhq.org/" 
+	Examples: 
+	| browser | 
+      | chrome | 
+      | Firefox |
+		
