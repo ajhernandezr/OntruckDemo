@@ -16,18 +16,19 @@
 #""
 ## (Comments)
 #Sample Feature Definition Template
-@Search 
-Feature: Search 
+@OnTruckAltaEmpresas 
+Feature: Get to Create corporation account 
 
 
-@First 
-Scenario Outline: Search for Selenium with 
-	 Given user is on "https://www.google.es/" url with "<browser>"
-	When searching for "Selenium" 
-	And pressing i'm feeling lucky button 
-	Then page opened should be "https://www.seleniumhq.org/" 
+Scenario Outline: Register new corporation 
+	Given I am on "https://ontruck.com/es/" with "<browser>"
+	When I navigate to business page 
+	And proceed to Crear cuenta para empresa section 
+	Then I get the create account form 
+	And  fill the form with the following "<name>" and "<email>" and "<phone>" 
+	
 	Examples: 
-	| browser | 
-      | chrome | 
-      | Firefox |
-		
+		| browser | name  | email 	 | phone |
+		| chrome |  Empresa Envios | Test@153 | 123456 |
+		| chrome | 	 Empresa Furgonetas | Test@153 | 123456 |
+		| Firefox | Empresa Camiones | Test@153 | 123456 |

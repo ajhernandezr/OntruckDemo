@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -117,7 +116,7 @@ public class utilities {
 		builder.moveToElement(element).build().perform();
 	}
 
-	public static WebDriver selectBrowser(String browser) {
+	public static WebDriver selectBrowser(String url,String browser) {
 		
 		switch (browser) {
 		case "Firefox":
@@ -127,7 +126,8 @@ public class utilities {
 			driver = new FirefoxDriver();
 
 			driver.manage().window().maximize();
-		
+			
+			driver.get(url);
 			break;
 	
 		case "chrome":
@@ -142,7 +142,8 @@ public class utilities {
 
 			driver = new ChromeDriver(options);
 			driver.manage().window().maximize();
-			utilities.setWebDriver(driver);
+
+			driver.get(url);
 			break;
 		}
 		utilities.setWebDriver(driver);
@@ -202,4 +203,11 @@ public class utilities {
 
 		FileUtils.copyFile(scrFile, new File(Constant.Screenshot_Passed_Path + step + ".jpg"));
 	}
+	// Getting Screenshot for failed evidences
+		public static void reportFailedScreenshots(String step) throws Exception {
+			WebDriver augmentedDriver = new Augmenter().augment(driver);
+			File scrFile = ((TakesScreenshot) augmentedDriver).getScreenshotAs(OutputType.FILE);
+
+			FileUtils.copyFile(scrFile, new File(Constant.Screenshot_Error_Path + step + ".jpg"));
+		}
 }
