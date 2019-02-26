@@ -1,0 +1,19 @@
+node {
+
+    stage('Compile') {
+        sh './gradlew clean build'
+        sh './gradlew classes'
+    }
+
+    stage('Api tests') {
+        try {
+            sh "./gradlew apiTest"
+            cucumber fileIncludePattern: '**/target/surefire-reports/*.json', parallelTesting: true, sortingMethod: 'ALPHABETICAL'
+        }
+        catch (e) {
+            cucumber buildStatus: 'FAILED', fileIncludePattern: '**/target/surefire-reports/*.json', parallelTesting: true, sortingMethod: 'ALPHABETICAL'
+            throw e
+        }
+    }
+
+}
